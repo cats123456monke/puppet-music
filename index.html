@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Puppet Music Box</title>
+  <title>Puppet's Music Box</title>
   <style>
     body {
       background-color: #111;
@@ -60,56 +60,14 @@
 
   <div class="game-over" id="gameOver">YOU LOSE!</div>
 
-  <audio id="music" loop>
-    <source src="https://freesound.org/data/previews/456/456180_7037-lq.mp3" type="audio/mpeg">
+  <!-- Add the Puppet Music Box Sound -->
+  <audio id="musicBoxAudio" loop>
+    <source src="https://cdn.glitch.global/9c07ba68-f8a2-4ff7-a493-88ab772a6b60/FNAF2-Music-Box.mp3?v=1691400557749" type="audio/mpeg">
+    Your browser does not support the audio element.
   </audio>
 
   <script>
     const needle = document.getElementById('needle');
     const windButton = document.getElementById('windButton');
     const gameOver = document.getElementById('gameOver');
-    const music = document.getElementById('music');
-
-    let timer = 100; // Max time (100 units)
-    let isGameOver = false;
-
-    // Start music box music
-    music.volume = 0.5;
-    music.play();
-
-    function updateNeedle() {
-      const angle = (timer / 100) * 270; // 270 degrees max rotation
-      needle.style.transform = `rotate(${angle}deg)`;
-    }
-
-    function tick() {
-      if (isGameOver) return;
-
-      timer -= 0.1; // Decrease over time
-
-      if (timer <= 0) {
-        timer = 0;
-        isGameOver = true;
-        gameOver.style.display = 'block';
-        music.pause();
-      }
-
-      updateNeedle();
-      requestAnimationFrame(tick);
-    }
-
-    windButton.addEventListener('click', () => {
-      if (isGameOver) return;
-
-      timer += 10; // Wind up by 10 units
-      if (timer > 100) timer = 100;
-
-      updateNeedle();
-    });
-
-    updateNeedle();
-    tick();
-  </script>
-
-</body>
-</html>
+    const musicBoxAudio = do
