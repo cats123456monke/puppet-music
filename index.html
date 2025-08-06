@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Puppet Music Box</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      font-family: sans-serif;
+      margin-top: 100px;
+    }
+
+    .music-box {
+      width: 200px;
+      height: 200px;
+      border: 10px solid #aaa;
+      border-radius: 50%;
+      margin: 0 auto;
+      background: radial-gradient(circle, #ccc 0%, #999 60%, #555 100%);
+      box-shadow: inset 0 0 20px #000;
+      position: relative;
+    }
+
+    .needle {
+      width: 6px;
+      height: 80px;
+      background: red;
+      position: absolute;
+      top: 20px;
+      left: 97px;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+      transition: transform 0.2s linear;
+    }
+
+    .wind-up {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .game-over {
+      color: red;
+      font-size: 30px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Puppet's Music Box</h1>
+  <div class="music-box">
+    <div class="needle" id="needle"></div>
+  </div>
+  <button class="wind-up" id="windButton">Wind Up</button>
+
+  <div class="game-over" id="gameOver">YOU LOSE!</div>
+
+  <audio id="music" loop>
+    <source src="https://freesound.org/data/previews/456/456180_7037-lq.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const needle = document.getElementById('needle');
+    const windButton = document.getElementById('windButton');
+    const gameOver = document.getElementById('gameOver');
+    const music = document.getElementById('music');
+
+    let timer = 100; // Max time (100 units)
+    let isGameOver = false;
+
+    // Start music box music
+    music.volume = 0.5;
+    music.play();
+
+    function updateNeedle() {
+      const angle = (timer / 100) * 270; // 270 degrees max rotation
+      needle.style.transform = `rotate(${angle}deg)`;
+    }
+
+    function tick() {
+      if (isGameOver) return;
+
+      timer -= 0.1; // Decrease over time
+
+      if (timer <= 0) {
+        timer = 0;
+        isGameOver = true;
+        gameOver.style.display = 'block';
+        music.pause();
+      }
+
+      updateNeedle();
+      requestAnimationFrame(tick);
+    }
+
+    windButton.addEventListener('click', () => {
+      if (isGameOver) return;
+
+      timer += 10; // Wind up by 10 units
+      if (timer > 100) timer = 100;
+
+      updateNeedle();
+    });
+
+    updateNeedle();
+    tick();
+  </script>
+
+</body>
+</html>
