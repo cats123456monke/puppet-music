@@ -33,7 +33,7 @@
       left: 97px;
       transform-origin: bottom center;
       transform: rotate(0deg);
-      transition: transform 0.2s linear;
+      transition: transform 0.1s linear;
     }
 
     .wind-up {
@@ -63,75 +63,5 @@
     }
 
     .zoom-in {
-      transform: scale(5);
-    }
+      transfor
 
-    .restart-button {
-      padding: 10px 20px;
-      font-size: 20px;
-      cursor: pointer;
-      background: #fff;
-      color: #000;
-      border: none;
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Puppet's Music Box</h1>
-  <div class="music-box">
-    <div class="needle" id="needle"></div>
-  </div>
-  <button class="wind-up" id="windButton">Wind Up</button>
-
-  <!-- Jumpscare Screen -->
-  <div class="jumpscare-screen" id="jumpscareScreen">
-    <img src="https://i.imgur.com/YH9yPlX.png" alt="Puppet Jumpscare" class="puppet-jumpscare" id="puppetImage">
-    <button class="restart-button" id="restartButton">Restart</button>
-  </div>
-
-  <!-- Music Box Sound -->
-  <audio id="musicBoxAudio" loop>
-    <source src="https://cdn.glitch.global/9c07ba68-f8a2-4ff7-a493-88ab772a6b60/FNAF2-Music-Box.mp3?v=1691400557749" type="audio/mpeg">
-  </audio>
-
-  <!-- Jumpscare Sound -->
-  <audio id="jumpscareSound">
-    <source src="https://cdn.glitch.global/4f9702e3-fb50-47e2-9f2f-7db3eddd3fb9/fnaf2_puppet_jumpscare.mp3?v=1691400757749" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const needle = document.getElementById('needle');
-    const windButton = document.getElementById('windButton');
-    const jumpscareScreen = document.getElementById('jumpscareScreen');
-    const puppetImage = document.getElementById('puppetImage');
-    const restartButton = document.getElementById('restartButton');
-    const musicBoxAudio = document.getElementById('musicBoxAudio');
-    const jumpscareSound = document.getElementById('jumpscareSound');
-
-    let timer = 100;
-    let isGameOver = false;
-
-    // Start Music Box
-    window.onload = () => {
-      musicBoxAudio.volume = 0.5;
-      musicBoxAudio.play();
-    };
-
-    function updateNeedle() {
-      const angle = (timer / 100) * 270;
-      needle.style.transform = `rotate(${angle}deg)`;
-    }
-
-    function tick() {
-      if (isGameOver) return;
-
-      timer -= 0.1;
-      if (timer <= 0) {
-        timer = 0;
-        triggerJumpscare();
-      }
-
-      updateN
